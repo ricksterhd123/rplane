@@ -12,6 +12,16 @@
 int main()
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
+
+    Camera3D camera = { 0 };
+    camera.position = (Vector3){ 10.0f, 10.0f, 10.0f }; // Camera position
+    camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };      // Camera looking at point
+    camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
+    camera.fovy = 45.0f;                                // Camera field-of-view Y
+    camera.projection = CAMERA_PERSPECTIVE;             // Camera projection type
+
+    Vector3 cubePosition = { 0.0f, 0.0f, 0.0f };
+
     SetTargetFPS(60);
 
     while (!WindowShouldClose())
@@ -20,19 +30,11 @@ int main()
 
         ClearBackground(RAYWHITE);
 
-        for (int i = 0; i < 100; i++) {
-            int jitterX = GetRandomValue(-AREA, AREA);
-            int jitterY = GetRandomValue(-AREA, AREA);
-
-            unsigned char r = GetRandomValue(0, 255);
-            unsigned char g = GetRandomValue(0, 255);
-            unsigned char b = GetRandomValue(0, 255);
-
-            Color color = { r, g, b, 255 };
-
-            DrawCircle(SCREEN_WIDTH / 2 + jitterX, SCREEN_HEIGHT / 2 + jitterY, 25 + sin(GetTime()) * 75, color);
-        }
-
+        BeginMode3D(camera);
+            DrawCube(cubePosition, 2.0f, 2.0f, 2.0f, RED);
+            DrawCubeWires(cubePosition, 2.0f, 2.0f, 2.0f, MAROON);
+            DrawGrid(10, 1.0f);
+        EndMode3D();
         EndDrawing();
     }
 
