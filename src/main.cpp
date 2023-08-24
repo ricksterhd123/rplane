@@ -13,7 +13,6 @@
     #define GLSL_VERSION            100
 #endif
 
-
 #define SCREEN_WIDTH (800)
 #define SCREEN_HEIGHT (450)
 #define FPS (60)
@@ -84,6 +83,7 @@ int main()
         BeginDrawing();
 
         ClearBackground(RAYWHITE);
+        DrawFPS(10, 10);
 
         BeginMode3D(camera);
         {
